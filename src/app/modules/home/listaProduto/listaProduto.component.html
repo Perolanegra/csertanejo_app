@@ -1,0 +1,9 @@
+<div>
+  <ion-list no-lines>
+    <ion-card *ngFor="let item of arrayCuscuz" (tap)="appController.navigate('detalhe', item)">
+      <img [src]="item?.pic"/>
+      <div class="card-title" (tap)="appController.navigate('detalhe', item)">{{item.nome}}</div>
+      <div class="card-subtitle" (tap)="appController.navigate('detalhe', item)">{{item.likes}} Likes</div>
+    </ion-card>
+  </ion-list>
+</div>
