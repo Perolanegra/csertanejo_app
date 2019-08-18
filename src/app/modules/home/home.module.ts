@@ -6,13 +6,16 @@ import { RouterModule } from '@angular/router';
 
 import { ListaProdutoComponent } from './listaProduto/listaProduto.component';
 import { HomeComponent } from './home.component';
+import { ProdutoService } from '../produto/produto.service';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    RouterModule.forChild([
+    IonicModule, // *
+    SharedModule,
+    RouterModule.forChild([ // Se chamar pelo módulo é => *
       {
         path: '',
         component: HomeComponent
@@ -23,8 +26,8 @@ import { HomeComponent } from './home.component';
     HomeComponent,
     ListaProdutoComponent
   ],
-  exports: [
-    HomeComponent
+  providers: [
+    ProdutoService
   ]
 })
 

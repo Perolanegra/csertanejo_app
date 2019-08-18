@@ -1,6 +1,6 @@
-import { ResolverPadrao } from 'src/app/shared/resolvers/resolverPadrao';
 import { Injectable } from '@angular/core';
-import { ProdutoService } from './produto.service';
+import { ResolverPadrao } from 'src/app/shared/resolverPadrao';
+import { ProdutoService } from '../produto.service';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -10,7 +10,6 @@ export class ObterProdutosResolver extends ResolverPadrao {
     }
 
     resolver(pParams: any) {   
-        console.log('prametros: ', pParams);
         return this.produtoService.obterTodos().pipe(map(resp => resp));
     }
 }
