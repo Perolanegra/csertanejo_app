@@ -32,7 +32,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                 return event;
             }),
             catchError((err: HttpErrorResponse) => {
-                this.loadingController.dismiss('interceptor');
+                
                 const data = {
                     reason: err && err.error.reason ? err.error.reason : '',
                     status: err.status
@@ -40,6 +40,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
 
                 console.log('Interceptor diz: Requisição em Exception');
                 this.appController.tratarErro(err);
+                this.loadingController.dismiss('interceptor');
                 return throwError(err);
             })
         );

@@ -8,11 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent {
 
-  constructor(route: ActivatedRoute) {
-    route.data.subscribe(resp => {
-      console.log('HomePage!', resp);
-    });
-    
+  constructor(private route: ActivatedRoute) {
   }
 
 

@@ -25,10 +25,10 @@ export class RestService {
     return this.httpClient.post(this.url + pEndpoint, pData, { headers: headers });
   }
 
-  get(pEndpoint: string) {
-    // Define o headers
+  public get(pEndpoint: string) {
+    // seta o headers
     let headers: HttpHeaders = new HttpHeaders().set('Content-type', 'application/json');
-
+    
     return this.httpClient.get(this.url + pEndpoint, { headers: headers });
   }
 

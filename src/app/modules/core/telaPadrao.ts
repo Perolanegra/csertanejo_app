@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-
 export abstract class TelaPadrao {
+    
 
     private _respResolvers;
     public maskConfig = {
@@ -23,9 +23,7 @@ export abstract class TelaPadrao {
     };
 
     constructor(protected route: ActivatedRoute) {
-        this.route.data.subscribe(resp => {
-            this._respResolvers = resp;
-        });
+        this._respResolvers = this.route.snapshot.data;
     }
 
     //Método que obtém a resposta dos resolvers.

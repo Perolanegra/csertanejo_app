@@ -9,7 +9,7 @@ export class ProdutoService {
     constructor(private restService: RestService) { }
 
     public obterTodos(): Observable<any> {
-        return this.restService.get(`produto/obterTodos`);
+        return this.restService.get("produto/obterTodos");
     }
 
     public obterPorId(pId): Promise<any> {

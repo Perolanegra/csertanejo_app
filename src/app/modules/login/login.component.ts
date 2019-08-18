@@ -9,7 +9,7 @@ import { AppController } from '../core/appController';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, public appController: AppController) { }
  
   ngOnInit() {
     // this.criarLoginForm();

@@ -16,7 +16,7 @@ export class ListaProdutoComponent extends TelaPadrao implements OnInit {
   }
 
   ngOnInit() {
-    console.log('cuscuz: ', this.arrayCuscuz);
+    console.log('Produtos: ', this.arrayCuscuz);
   }
 
   public get arrayCuscuz() {

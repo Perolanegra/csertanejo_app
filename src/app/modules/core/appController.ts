@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 // import { ToastrService } from 'ngx-toastr';
 import { AbstractControl } from '@angular/forms';
-import { debounceTime, tap } from "rxjs/operators";
+import { debounceTime, tap, reduce } from "rxjs/operators";
 // import { MatDialogRef, MatDialog } from '@angular/material';
 // import { DialogAguardeComponent } from 'src/app/shared/dialogs/dialogAguarde/dialogAguarde.component';
 // import { DialogConfirmacaoComponent } from 'src/app/shared/dialogs/dialogConfirmacao/dialogConfirmacao.component';
 import { Router } from '@angular/router';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { ModalController, LoadingController, ToastController } from '@ionic/angular';
 
 @Injectable()
 export class AppController {
     private msg = "";
 
-    constructor(/*private dialog: MatDialog,*/
+    constructor(private toastCtrl: ToastController,
     private router: Router,
     public modalCtrl: ModalController,
     private loadingController: LoadingController
@@ -21,8 +21,6 @@ export class AppController {
     tratarErro(err): void {
         //Mensagem a ser exibida
         this.msg = err.message;
-        console.log('entro sempre aqui kk');
-        
 
         //Erros de Response(possuem status)
         if (err.status != undefined && err.status != null) {
@@ -62,16 +60,54 @@ export class AppController {
 
         }
 
-        // this.exibirErro(this.msg);
+        this.exibirErro(this.msg);
     }
 
-    // public exibirErro(msg: string) {
-    //     setTimeout(() => this.toastr.error(msg, ''));
-    // }
+    public async exibirErro(msg: string = "Operação Indisponível no Momento") {
+        const toast = await this.toastCtrl.create({
+            // header: 'Ops...',
+            message: msg,
+            position: 'bottom',
+            color: "danger",
+            // mode: "ios",
+            buttons: 
+            [{
+                text: 'OK',
+                role: 'cancel',
+                handler: () => {
+                    console.log('OK clicked');
+                }
+            }]
+        });
+        
+        toast.present();
+    }
 
-    // public exibirSucesso(msg: string) {
-    //     setTimeout(() => this.toastr.success(msg, ''));
-    // }
+    public async exibirSucesso(msg: string) {
+        const toast = await this.toastCtrl.create({
+            header: 'Toast header',
+            message: 'Click to Close',
+            position: 'bottom',
+            buttons: [
+              {
+                side: 'start',
+                icon: 'star',
+                text: 'Favorite',
+                handler: () => {
+                  console.log('Favorite clicked');
+                }
+              }, {
+                text: 'Done',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancel clicked');
+                }
+              }
+            ]
+        });
+        
+        toast.present();
+    }
 
     // public exibirWarning(msg: string) {
     //     setTimeout(() => this.toastr.warning(msg, ''));
