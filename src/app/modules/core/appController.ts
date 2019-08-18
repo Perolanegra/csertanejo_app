@@ -21,6 +21,8 @@ export class AppController {
     tratarErro(err): void {
         //Mensagem a ser exibida
         this.msg = err.message;
+        console.log('entro sempre aqui kk');
+        
 
         //Erros de Response(possuem status)
         if (err.status != undefined && err.status != null) {
@@ -156,13 +158,10 @@ export class AppController {
     * @param pPage Recebe uma string como parâmetro que faz referência a rota a ser navegada.
     * @author igor.alves
     */
-    public navigate(pPage: string, pParams = {}) {
-        try {
-            this.router.navigate(['/' + pPage, pParams]);
-        }
-        catch (e) {
-            this.tratarErro(e);
-        }
+    public async navigate(pPage: string, pParams = {}) {
+        await this.router.navigate(['/' + pPage, pParams]).catch(err => {
+            this.tratarErro(err);
+        });
     }
 
     /**

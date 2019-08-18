@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   { 
     path: 'home', 
-    loadChildren: () => import('./modules/home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
   },
   // { 
   //   path: 'pedido', 
@@ -16,8 +16,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' }) //preloadingStrategy: PreloadAllModules, 
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+  ]
 })
 export class AppRoutingModule { }

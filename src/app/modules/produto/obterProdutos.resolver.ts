@@ -9,7 +9,8 @@ export class ObterProdutosResolver extends ResolverPadrao {
         super();
     }
 
-    resolver(pParams: any) {
-        return this.produtoService.obterTodos().pipe(map(pResp => pResp));
+    resolver(pParams: any) {   
+        console.log('prametros: ', pParams);
+        return this.produtoService.obterTodos().pipe(map(resp => resp));
     }
 }

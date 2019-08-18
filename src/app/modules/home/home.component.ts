@@ -2,12 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  templateUrl: 'home.component.html',
+  styleUrls: ['home.component.scss'],
 })
-export class HomePage {
-
-  public arrayCuscuz;
+export class HomeComponent {
 
   constructor() {
     console.log('HomePage!');
