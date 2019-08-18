@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppController } from '../../core/appController';
 import { TelaPadrao } from '../../core/telaPadrao';
 import { ActivatedRoute } from '@angular/router';
-import { ProdutoService } from '../../produto/produto.service';
 
 @Component({
   selector: 'app-lista-produto',
