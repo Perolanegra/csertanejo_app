@@ -22,7 +22,8 @@ import { ObterProdutosResolver } from '../produto/resolvers/obterProdutos.resolv
         component: HomeComponent,
         resolve: {
           produtos: ObterProdutosResolver
-        }
+        },
+        runGuardsAndResolvers: 'always'
       }
     ])
   ],

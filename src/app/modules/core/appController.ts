@@ -66,18 +66,13 @@ export class AppController {
     public async exibirErro(msg: string = "Operação Indisponível no Momento") {
         const toast = await this.toastCtrl.create({
             // header: 'Ops...',
-            message: msg,
+            message: msg.length >= 75  ? "Operação Indisponível no Momento" : msg,
             position: 'bottom',
             color: "danger",
+            duration: 2500,
             // mode: "ios",
-            buttons: 
-            [{
-                text: 'OK',
-                role: 'cancel',
-                handler: () => {
-                    console.log('OK clicked');
-                }
-            }]
+            showCloseButton: true,
+            closeButtonText: 'OK'
         });
         
         toast.present();
