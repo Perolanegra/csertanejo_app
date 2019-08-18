@@ -300,15 +300,17 @@ export class AppController {
     }
 
 
-    public async abrirAguardeInterceptor() {
+    public async abrirAguarde() {
         const loadingRef = await this.loadingController.create({
             message: 'Aguarde',
             spinner: "dots",
-            showBackdrop: false,
-            id: 'interceptor'
+            showBackdrop: true,
+            // id: 'interceptor',
         });
 
-        return await loadingRef.present();
+        await loadingRef.present();
+
+        return this.loadingController;
     }
 
 }

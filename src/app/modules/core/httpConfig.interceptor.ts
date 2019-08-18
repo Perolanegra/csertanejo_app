@@ -1,17 +1,16 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AppController } from './appController';
-import { map, catchError } from 'rxjs/operators';
-import { LoadingController } from '@ionic/angular';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
 
-    constructor(private appController: AppController, private loadingController: LoadingController) { }
+    constructor(private appController: AppController) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const dialogAguarde = this.appController.abrirAguardeInterceptor();
+        const dialogAguarde = this.appController.abrirAguarde();
         const token: string = ''; // implementar getAcessToken
 
         if(token) {
@@ -22,28 +21,24 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         }
 
-        return next.handle(request).pipe(
-            map((event: HttpEvent<any>) => {
-                if(event instanceof HttpResponse) {
-                    console.log('Interceptor diz é HttpResponse: ', event);
-                    this.loadingController.dismiss('interceptor');
-                }
-                
-                return event;
-            }),
-            catchError((err: HttpErrorResponse) => {
-                
-                const data = {
-                    reason: err && err.error.reason ? err.error.reason : '',
-                    status: err.status
-                };
-
-                console.log('Interceptor diz: Requisição em Exception');
-                this.appController.tratarErro(err);
-                this.loadingController.dismiss('interceptor');
-                return throwError(err);
-            })
-        );
+        try {
+            return next.handle(request).pipe(
+                map((event: HttpEvent<any>) => {
+                    if(event instanceof HttpResponse) {
+                        console.log('Interceptor diz, HttpResponse: ', event);
+                    }
+                    
+                    return event;
+                })
+            );
+            
+        } catch (err) {
+            this.appController.tratarErro(err);
+            console.log('Interceptor diz: Requisição em Exception', err);
+        }
+        finally {
+            dialogAguarde.then(resp => resp.dismiss());
+        }
     }
 
 }

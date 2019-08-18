@@ -11,7 +11,7 @@ import { ProdutoService } from '../../produto/produto.service';
 })
 export class ListaProdutoComponent extends TelaPadrao implements OnInit {
 
-  constructor(public appController: AppController, protected route: ActivatedRoute, private service: ProdutoService) {
+  constructor(public appController: AppController, protected route: ActivatedRoute) {
     super(route);
   }
 
