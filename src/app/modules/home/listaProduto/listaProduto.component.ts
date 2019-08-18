@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { AppController } from '../../core/appController';
+import { TelaPadrao } from '../../core/telaPadrao';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lista-produto',
   templateUrl: './listaProduto.component.html',
   styleUrls: ['./listaProduto.component.scss'],
 })
-export class ListaProdutoComponent {
+export class ListaProdutoComponent extends TelaPadrao {
 
-
-  constructor(public navCtrl: NavController, public appController: AppController) {
-    
+  constructor(public appController: AppController, protected route: ActivatedRoute) {
+    super(route);
   }
 
   public get arrayCuscuz() {

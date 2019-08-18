@@ -1,27 +1,64 @@
-import { AppController } from './appController';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 
 export abstract class TelaPadrao {
-    private _registros;
 
-    constructor(protected appController: AppController,
-    protected router: Router, route: ActivatedRoute) {
-        // super(route);
+    private _respResolvers;
+    public maskConfig = {
+        mask: [
+        new RegExp('\\d'),
+        new RegExp('\\d'),
+        '/',
+        new RegExp('\\d'),
+        new RegExp('\\d'),
+        '/',
+        new RegExp('\\d'),
+        new RegExp('\\d'),
+        new RegExp('\\d'),
+        new RegExp('\\d')
+        ],
+        showMask: false,
+        guide: false,
+        placeholderChar: '_'
+    };
+
+    constructor(protected route: ActivatedRoute) {
+        this.route.data.subscribe(resp => {
+            this._respResolvers = resp;
+        });
     }
 
-    get registros() {
-        return this._registros;
+    //Método que obtém a resposta dos resolvers.
+    get respResolvers() {
+        return this._respResolvers;
     }
 
-    set registros(pParams: any) {
-        // this.respResolvers.registros = pParams;
-    }
+    //Retorna o JSON de parâmetros criados a partir do form recebido
+    criarParamsRotaFiltro(pForm:FormGroup) {
+        let lControls = Object.keys(pForm.controls);
+        let lParams = {};
+        lControls.forEach(index => {
+            if(pForm.controls[index].value) {
+                lParams[index] = pForm.controls[index].value;
+            }
+            else{
+                lParams[index] = null; 
+            }
+        });
 
-    //Metodo que mostra o nome do objeto no autocomplete
-    obterNomeItem(pItem) {
-        if (pItem) { return pItem.nome; }
+        return lParams;
     }
+    
+    //Retorna o JSON de parâmetros criados a partir do formbuilder de filtro
+    criarParamsRota(pParams:string[],pValues:any[]) {
+        let lParams = {};
+        let i=0;
+        pParams.forEach(lParam => {            
+            lParams[lParam] = pValues[i];            
+            i++;           
+        });
 
-    abstract obterRotaAtual();
+        return lParams;
+    }
 
 }
