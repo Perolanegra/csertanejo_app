@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
-import { ObterOutroResolver } from '../produto/obterOutro.resolver';
+import { ObterProdutosResolver } from '../produto/obterProdutos.resolver';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -10,7 +10,7 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         resolve: {
-            produtos: ObterOutroResolver
+            produtos: ObterProdutosResolver
         },
         // canActivate: [true],
         runGuardsAndResolvers: 'always'
@@ -21,8 +21,7 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
   providers: [
-    // ObterProdutosResolver
-    ObterOutroResolver
+    ObterProdutosResolver
   ]
 })
 
