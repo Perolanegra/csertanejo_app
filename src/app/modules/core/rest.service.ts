@@ -25,11 +25,11 @@ export class RestService {
     return this.httpClient.post(this.url + pEndpoint, pData, { headers: headers });
   }
 
-  public get(pEndpoint: string) {
+  public get(pEndpoint: string, pParams: any) {
     // seta o headers
     let headers: HttpHeaders = new HttpHeaders().set('Content-type', 'application/json');
     
-    return this.httpClient.get(this.url + pEndpoint, { headers: headers });
+    return this.httpClient.get(this.url + pEndpoint, { headers: headers, params: pParams });
   }
 
   postBlob(pUrl: string, pEndpoint: string, pData: any) {
